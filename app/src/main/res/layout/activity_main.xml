@@ -6,13 +6,73 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+    <!-- Toolbar for whole app -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/main_toolbar"
+        app:title="Ravenous Snakes"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- where fragments will be displayed within the app -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/main_frag_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/md_theme_light_secondary"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar"
+        app:layout_constraintBottom_toTopOf="@id/main_bottom_nav"
+        tools:background="#FF006688"/>
+
+    <!--
+    simple bottom app bar with three buttons
+    (not real way to create a bottom nav, created like this for simplicity)
+    -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_bottom_nav"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- button to navigate to stats screen -->
+        <Button
+            android:id="@+id/button_stats"
+            android:text="Stats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <!-- button to navigate to game screen -->
+        <Button
+            android:id="@+id/button_game"
+            android:text="Game"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/button_stats"
+            app:layout_constraintEnd_toStartOf="@id/button_profile"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <!-- button to navigate to profile screen -->
+        <Button
+            android:id="@+id/button_profile"
+            android:text="Profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
