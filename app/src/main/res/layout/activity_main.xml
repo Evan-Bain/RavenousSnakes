@@ -19,7 +19,8 @@
 
     <!-- where fragments will be displayed within the app -->
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/main_frag_container"
+        android:id="@+id/nav_host_fragment_container"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/md_theme_light_secondary"

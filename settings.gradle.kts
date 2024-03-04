@@ -14,4 +14,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "RavenousSnakes"
-include ':app'
+include(":app")

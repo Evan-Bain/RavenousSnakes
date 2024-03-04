@@ -1,65 +1,49 @@
 package com.example.ravenoussnakes;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
-
+import androidx.navigation.NavController;
+import androidx.navigation.NavGraph;
+import androidx.navigation.fragment.NavHostFragment;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
-import android.widget.Button;
+
+import com.example.ravenoussnakes.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        // getting all views
-        Toolbar mainToolbar = findViewById(R.id.main_toolbar);
-        Button gameButton = findViewById(R.id.button_game);
-        Button statsButton = findViewById(R.id.button_stats);
-        Button profileButton = findViewById(R.id.button_profile);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        // setting up toolbar for app
-        setSupportActionBar(mainToolbar);
+        // create NavController for fragments
+        NavHostFragment navHostFragment =
+                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_container);
+        assert navHostFragment != null;
+        NavController navController = navHostFragment.getNavController();
 
-        // setting up navigation between fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.main_frag_container, GameFragment.class, null)
-                .setReorderingAllowed(true)
-                .addToBackStack("Game")
-                .commit();
+        // set up NavGraph for fragments
+        NavGraph navGraph = navController.getNavInflater().inflate(R.navigation.nav_graph);
+        navController.setGraph(navGraph);
 
+        // navigate to Game Fragment when game button pressed
+        binding.buttonGame.setOnClickListener(view ->
+                navController.navigate(R.id.gameFragment)
+        );
 
-        // navigate to Game Fragment
-        gameButton.setOnClickListener( button -> {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.main_frag_container, GameFragment.class, null)
-                    .setReorderingAllowed(true)
-                    .addToBackStack("Game")
-                    .commit();
-        } );
+        // navigate to Stats Fragment when stats button pressed
+        binding.buttonStats.setOnClickListener(view ->
+                navController.navigate(R.id.statsFragment)
+        );
 
-        // navigate to Stats Fragment
-        statsButton.setOnClickListener( button -> {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.main_frag_container, StatsFragment.class, null)
-                    .setReorderingAllowed(true)
-                    .addToBackStack("Stats")
-                    .commit();
-        } );
-
-        // navigate to Profile Fragment
-        profileButton.setOnClickListener( button -> {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.main_frag_container, ProfileFragment.class, null)
-                    .setReorderingAllowed(true)
-                    .addToBackStack("Profile")
-                    .commit();
-        } );
+        // navigate to Profile Fragment when profile button pressed
+        binding.buttonProfile.setOnClickListener(view ->
+                navController.navigate(R.id.profileFragment)
+        );
     }
 
     @Override
